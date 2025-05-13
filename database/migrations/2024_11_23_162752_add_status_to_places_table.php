@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('places', function (Blueprint $table) {
             $table->string('status');
+            $table->text('remarks')->nullable();
         });
     }
 

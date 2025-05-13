@@ -59,7 +59,7 @@ public function pending()
             'entrance' => 'nullable|string',
             'pricing' => 'nullable|string',
             'activities' => 'nullable|string',
-            'history' => 'nullable|string',
+            'history' => 'nullable|string|max:60000',
         ]);
 
 
@@ -163,6 +163,7 @@ public function pending()
    
     $request->validate([
         'status' => 'required|string|in:Approved,Pending,Rejected', 
+        'remarks' => 'nullable|string',
     ]);
 
     
@@ -177,10 +178,11 @@ public function pending()
 
  
     $place->status = $request->input('status');
+    $place->remarks = $request->remarks;
     $place->save();
 
     return response()->json([
-        'message' => 'Status updated successfully',
+        'message' => 'Status and message updated successfully',
         'place' => $place
     ]);
 }
